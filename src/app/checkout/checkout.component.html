@@ -1,0 +1,20 @@
+<header class="bg-blue-700 text-white p-4">
+  <div class="container mx-auto flex justify-between items-center">
+    <h1 class="text-2xl font-bold">ticketmaster</h1>
+
+
+    <a href="#" class="ml-4 hidden md:block">Sign In/Register</a>
+  </div>
+</header>
+
+<div class="mx-auto max-w-5xl p-4">
+  <div class="flex flex-col-1 lg:flex-col-2 justify-between">
+    <div>
+      <app-delivery></app-delivery>
+      <app-payment></app-payment>
+    </div>
+    <app-order [cost]="initialCost" [quantity]="qty" [orderFee]="serviceFee"
+      [processingFee]="orderProcessingFee"></app-order>
+  </div>
+
+</div>

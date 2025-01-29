@@ -1,0 +1,77 @@
+<div class="border mt-8 border-gray-200 rounded-xl">
+  <div class="p-4 max-w-lg mx-auto rounded-xl space-y-4">
+    
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <h2 class="font-bold text-2xl">Payment</h2>
+        <svg class="w-10 h-10 text-green-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8.5 11.5 11 14l4-4m6 2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+        </svg>
+      </div>
+      <img class="w-30 h-8 bg-blue-800 p-2 rounded-2xl" src="https://help.ticketmaster.com/hc/theming_assets/01HZPHTRF2QNK3E35HQ2RV1T01" />
+    </div>
+
+    <h2 class="text-gray-600 font-semibold text-md">Use Credit / Debit Card</h2>
+
+    <div *ngFor="let card of savedCards; let i = index" class="bg-blue-50 p-4 rounded-lg space-y-4">
+      <div class="flex items-center space-x-4">
+        <input type="radio" class="w-5 h-5 text-blue-500" [value]="card" [(ngModel)]="selectedCard">
+        <img class="h-8" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/visa.svg" *ngIf="card.type === 'VISA'" />
+        <img class="h-8" src="https://flowbite.s3.amazonaws.com/blocks/e-commerce/brand-logos/mastercard.svg" *ngIf="card.type === 'MasterCard'" />
+        <div>
+          <h2 class="text-lg font-semibold">{{ card.type }} - {{ card.last4 }}</h2>
+          <p class="text-sm">{{ card.name }} | exp: {{ card.expiry }}</p>
+          <div class="flex space-x-4 text-blue-500 text-sm">
+            <span class="cursor-pointer hover:text-blue-700">Edit</span>
+            <span>|</span>
+            <span class="cursor-pointer hover:text-blue-700" (click)="deleteCard(i)">Delete</span>
+          </div>
+        </div>
+      </div>
+	  <div class="space-x-2 ml-8">
+      <div class="text-gray-700">Security Code</div>
+      <div class="flex items-center space-x-2">
+        <input type="text" placeholder="***" class="border border-gray-300 w-16 h-8 text-center rounded-md">
+        
+        <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+          <path fill-rule="evenodd" d="M4 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H4Zm0 6h16v6H4v-6Z" clip-rule="evenodd"/>
+          <path fill-rule="evenodd" d="M5 14a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Zm5 0a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2h-5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+        </svg>
+        <span class="text-gray-400 text-xs">3-digits at the back of the card</span>
+
+      </div>
+    </div>
+    </div>
+
+    <div class="flex items-center space-x-3 cursor-pointer text-blue-700 hover:text-blue-900" (click)="toggleAddCard()">
+      <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/>
+      </svg>
+      <p class="font-semibold">Add New Card</p>
+      <svg class="w-12 h-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+        <path fill-rule="evenodd" d="M4 5a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2H4Zm0 6h16v6H4v-6Z" clip-rule="evenodd"/>
+        <path fill-rule="evenodd" d="M5 14a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H6a1 1 0 0 1-1-1Zm5 0a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2h-5a1 1 0 0 1-1-1Z" clip-rule="evenodd"/>
+      </svg>
+    </div>
+
+    <div *ngIf="showAddCardForm" class="bg-gray-100 p-4 rounded-lg space-y-3">
+      <input type="text" placeholder="Card Number" [(ngModel)]="newCard.number" class="border p-2 rounded w-full">
+      <input type="text" placeholder="Name on Card" [(ngModel)]="newCard.name" class="border p-2 rounded w-full">
+      <input type="text" placeholder="MM/YY" [(ngModel)]="newCard.expiry" class="border p-2 rounded w-full">
+      <input type="text" placeholder="CVV" [(ngModel)]="newCard.cvv" class="border p-2 rounded w-full">
+      
+      <div class="flex justify-end space-x-3">
+        <button class="bg-gray-400 text-white px-4 py-2 rounded" (click)="toggleAddCard()">Cancel</button>
+        <button class="bg-blue-600 text-white px-4 py-2 rounded" (click)="saveCard()">Save Card</button>
+      </div>
+    </div>
+
+    <hr class="border-gray-300"/>
+
+    <h2 class="text-gray-700 font-bold text-lg">Or Pay With</h2>
+    <p class="font-semibold text-gray-700">
+      By using a digital wallet and continuing past this page, you have read and are accepting the
+      <span class="text-blue-400 font-bold">Terms of Use.</span>
+    </p>
+  </div>
+</div>
