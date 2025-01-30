@@ -15,7 +15,7 @@ export class PaymentComponent {
     { type: 'VISA', last4: '1234', name: 'User Name', expiry: '01/26' }
   ];
 
-  selectedCard: any;
+  selectedCard!: string;
   showAddCardForm = false;
   newCard = { number: '', name: '', expiry: '', cvv: '' };
 
@@ -25,7 +25,7 @@ export class PaymentComponent {
   }
 
   saveCard() {
-    if (this.validateCard(this.newCard)) {
+    
       const last4 = this.newCard.number.slice(-4);
       this.savedCards.push({ 
         type: this.getCardType(this.newCard.number), 
@@ -34,18 +34,16 @@ export class PaymentComponent {
         expiry: this.newCard.expiry 
       });
       this.toggleAddCard();
-    } else {
-      alert('Invalid card details');
-    }
+   
   }
 
   deleteCard(index: number) {
     this.savedCards.splice(index, 1);
   }
 
-  validateCard(card: any) {
-    return card.number.length >= 12 && card.expiry.length === 5 && card.cvv.length === 3;
-  }
+  // validateCard(card: any) {
+  //   return card.number.length >= 12 && card.expiry.length === 5 && card.cvv.length === 3;
+  // }
 
   getCardType(cardNumber: string) {
     return cardNumber.startsWith('4') ? 'VISA' : 'MasterCard';

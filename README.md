@@ -7,7 +7,6 @@ TicketMaster is an Angular application for managing and purchasing event tickets
 Before you begin, ensure you have met the following requirements:
 - Node.js and npm installed. You can download them from [nodejs.org](https://nodejs.org/).
 - Angular CLI installed globally. You can install it using the following command:
-  ```sh
   npm install -g @angular/cli
 
  1. Clone the repository:
